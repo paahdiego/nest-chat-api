@@ -17,7 +17,7 @@ import { JwtStrategy } from './jwt.strategy';
     MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
     JwtModule.register({
       secret: 'mesmastringla',
-      signOptions: { expiresIn: '60s' },
+      signOptions: { expiresIn: '5d' },
     }),
   ],
   providers: [AuthService, LocalStrategy, UsersService, JwtStrategy],

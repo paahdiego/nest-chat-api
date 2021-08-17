@@ -3,7 +3,7 @@ import { Public } from 'src/common/decorators/isPublic.decorator';
 import { AuthService } from './auth.service';
 import { LoginDto } from './dto/login.dto';
 import { LocalAuthGuard } from './local-auth.guard';
-import { ApiBody } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiBody } from '@nestjs/swagger';
 
 @Controller('auth')
 export class AuthController {
@@ -16,7 +16,7 @@ export class AuthController {
   async login(@Request() req) {
     return this.authService.login(req.user);
   }
-
+  @ApiBearerAuth('access-token')
   @Get('profile')
   getProfile(@Request() req) {
     return req.user;

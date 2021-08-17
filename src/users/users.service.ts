@@ -11,8 +11,7 @@ export class UsersService {
 
   async create(createUserDto: CreateUserDto) {
     const user = await this.userModel.create(createUserDto);
-    console.log(user);
-    return 'This action adds a new user';
+    return user;
   }
 
   findAll() {

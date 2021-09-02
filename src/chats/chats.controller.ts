@@ -14,42 +14,43 @@ import { ChatsService } from './chats.service';
 export class ChatsController {
   constructor(private readonly chatsService: ChatsService) {}
 
+  @Post()
   @CustomSimplePost({
     model: 'chat',
     bodyType: CreateChatDto,
     createType: CreateChatDto,
   })
-  @Post()
   create(@Body() createChatDto: CreateChatDto) {
     return this.chatsService.create(createChatDto);
   }
 
+  @Get()
   @CustomSimpleGet({
     model: 'chat',
     type: [CreateChatDto],
   })
-  @Get()
   findAll() {
     return this.chatsService.findAll();
   }
-  @CustomSimpleGetOne({ model: 'chat', type: CreateChatDto })
+
   @Get(':id')
+  @CustomSimpleGetOne({ model: 'chat', type: CreateChatDto })
   findOne(@Param('id') id: string) {
     return this.chatsService.findOne(id);
   }
 
+  @Patch(':id')
   @CustomSimplePut({
     model: 'chat',
     bodyType: UpdateChatDto,
     updateType: CreateChatDto,
   })
-  @Patch(':id')
   update(@Param('id') id: string, @Body() updateChatDto: UpdateChatDto) {
     return this.chatsService.update(id, updateChatDto);
   }
 
-  @CustomSimpleDelete({ model: 'chat' })
   @Delete(':id')
+  @CustomSimpleDelete({ model: 'chat' })
   remove(@Param('id') id: string) {
     return this.chatsService.remove(id);
   }

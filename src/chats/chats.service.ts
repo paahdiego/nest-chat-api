@@ -15,12 +15,16 @@ export class ChatsService {
   }
 
   async findAll() {
-    const chats = await this.chatModel.find();
+    const chats = await this.chatModel
+      .find()
+      .populate(['lastMessage', 'members']);
     return chats;
   }
 
   async findOne(id: string) {
-    const chat = await this.chatModel.findById(id);
+    const chat = await this.chatModel
+      .findById(id)
+      .populate(['lastMessage', 'members']);
     return chat;
   }
 

@@ -4,7 +4,7 @@ import { User } from 'src/users/entities/user.entity';
 import * as mongoose from 'mongoose';
 export type MessageDocument = Message & Document;
 
-@Schema()
+@Schema({ timestamps: true })
 export class Message {
   @Prop({
     required: true,
@@ -20,6 +20,8 @@ export class Message {
 
   @Prop({
     required: true,
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Chat',
   })
   chatId: string;
 }

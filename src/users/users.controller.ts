@@ -13,42 +13,43 @@ import { AuthController } from 'src/common/decorators/authController.decorator';
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
+  @Post()
   @CustomSimplePost({
     model: 'user',
     bodyType: CreateUserDto,
     createType: CreateUserDto,
   })
-  @Post()
   create(@Body() createUserDto: CreateUserDto) {
     return this.usersService.create(createUserDto);
   }
 
+  @Get()
   @CustomSimpleGet({
     model: 'users',
     type: [CreateUserDto],
   })
-  @Get()
   findAll() {
     return this.usersService.findAll();
   }
-  @CustomSimpleGetOne({ model: 'user', type: CreateUserDto })
+
   @Get(':id')
+  @CustomSimpleGetOne({ model: 'user', type: CreateUserDto })
   findOne(@Param('id') id: string) {
     return this.usersService.findOne(id);
   }
 
+  @Patch(':id')
   @CustomSimplePut({
     model: 'user',
     bodyType: UpdateUserDto,
     updateType: CreateUserDto,
   })
-  @Patch(':id')
   update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
     return this.usersService.update(id, updateUserDto);
   }
 
-  @CustomSimpleDelete({ model: 'user' })
   @Delete(':id')
+  @CustomSimpleDelete({ model: 'user' })
   remove(@Param('id') id: string) {
     return this.usersService.remove(id);
   }

@@ -22,12 +22,17 @@ export class MessagesService {
   }
 
   async findAll() {
-    const messages = await this.messageModel.find();
+    const messages = await this.messageModel
+      .find()
+      .populate(['chatId', 'sender']);
+
     return messages;
   }
 
   async findOne(id: string) {
-    const user = await this.messageModel.findById(id);
+    const user = await this.messageModel
+      .findById(id)
+      .populate(['chatId', 'sender']);
     return user;
   }
 

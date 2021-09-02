@@ -9,15 +9,16 @@ import { ApiBearerAuth, ApiBody } from '@nestjs/swagger';
 export class AuthController {
   constructor(private authService: AuthService) {}
 
+  @Post('login')
   @UseGuards(LocalAuthGuard)
   @ApiBody({ type: LoginDto })
-  @Post('login')
   @Public()
   async login(@Request() req) {
     return this.authService.login(req.user);
   }
-  @ApiBearerAuth('access-token')
+
   @Get('profile')
+  @ApiBearerAuth('access-token')
   getProfile(@Request() req) {
     return req.user;
   }

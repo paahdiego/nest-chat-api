@@ -5,7 +5,7 @@ import * as mongoose from 'mongoose';
 
 export type ChatDocument = Chat & Document;
 
-@Schema()
+@Schema({ timestamps: true })
 export class Chat {
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Message' })
   lastMessage: string;

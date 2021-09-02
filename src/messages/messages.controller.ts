@@ -12,27 +12,27 @@ import { MessagesService } from './messages.service';
 export class MessagesController {
   constructor(private readonly messagesService: MessagesService) {}
 
+  @Post()
   @CustomSimplePost({
     model: 'message',
     bodyType: CreateMessageDto,
     createType: CreateMessageDto,
   })
-  @Post()
   create(@Body() createMessageDto: CreateMessageDto) {
     return this.messagesService.create(createMessageDto);
   }
 
+  @Get()
   @CustomSimpleGet({
     model: 'message',
     type: [CreateMessageDto],
   })
-  @Get()
   findAll() {
     return this.messagesService.findAll();
   }
 
-  @CustomSimpleDelete({ model: 'message' })
   @Delete(':id')
+  @CustomSimpleDelete({ model: 'message' })
   remove(@Param('id') id: string) {
     return this.messagesService.remove(id);
   }

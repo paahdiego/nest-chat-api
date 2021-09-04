@@ -9,11 +9,16 @@ import {
 interface CustomSimpleGetOptions {
   model: string;
   type?: Type<unknown> | Function | [Function] | string;
+  params?: string;
 }
 
-export function CustomSimpleGet({ model, type }: CustomSimpleGetOptions) {
+export function CustomSimpleGet({
+  model,
+  type,
+  params,
+}: CustomSimpleGetOptions) {
   return applyDecorators(
-    Get(),
+    Get(params),
     ApiUnauthorizedResponse({ description: 'Forbidden.' }),
     ApiBadRequestResponse({
       description: 'Validation error',

@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Chat, ChatDocument } from 'src/chats/entities/chat.entity';
@@ -13,9 +13,19 @@ export class MessagesService {
   ) {}
 
   async create(createMessageDto: CreateMessageDto) {
-    const message = await this.messageModel.create(createMessageDto);
-    console.log(message._id);
-    await this.chatModel.findByIdAndUpdate(message.chatId, {
+    console.log(createMessageDto);
+    if (!createMessageDto.chat) {
+      console.log(createMessageDto);
+    }
+
+    const createdMessage = await this.messageModel.create(createMessageDto);
+
+    const message = await this.messageModel
+      .findById(createdMessage._id)
+      .populate('receiver')
+      .populate('sender');
+
+    await this.chatModel.findByIdAndUpdate(message.chat, {
       lastMessage: message._id,
     });
     return message;
@@ -24,7 +34,21 @@ export class MessagesService {
   async findAll() {
     const messages = await this.messageModel
       .find()
-      .populate(['chatId', 'sender']);
+      .populate(['sender', 'receiver']);
+
+    return messages;
+  }
+
+  async findAllFromChat(id: string) {
+    const chat = await this.chatModel.findOne({ _id: id });
+
+    if (!chat) {
+      throw new HttpException(`There's no messages for this chat ${id}`, 404);
+    }
+
+    const messages = await this.messageModel
+      .find({ chat: id })
+      .populate(['sender', 'receiver']);
 
     return messages;
   }
@@ -32,7 +56,7 @@ export class MessagesService {
   async findOne(id: string) {
     const user = await this.messageModel
       .findById(id)
-      .populate(['chatId', 'sender']);
+      .populate(['sender', 'receiver']);
     return user;
   }
 

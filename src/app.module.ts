@@ -9,10 +9,6 @@ import { APP_GUARD } from '@nestjs/core';
 import { MessagesModule } from './messages/messages.module';
 import { ChatsModule } from './chats/chats.module';
 
-import { AlertGateway } from './alert/alert.gateway';
-import { ChatGateway } from './chat/chat.gateway';
-import { AlertController } from './alert/alert.controller';
-
 @Module({
   imports: [
     UsersModule,
@@ -29,15 +25,13 @@ import { AlertController } from './alert/alert.controller';
     ),
     AuthModule,
   ],
-  controllers: [AppController, AlertController],
+  controllers: [AppController],
   providers: [
     AppService,
     {
       provide: APP_GUARD,
       useClass: JwtAuthGuard,
     },
-    ChatGateway,
-    AlertGateway,
   ],
 })
 export class AppModule {}

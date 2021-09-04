@@ -7,7 +7,10 @@ export type ChatDocument = Chat & Document;
 
 @Schema({ timestamps: true })
 export class Chat {
-  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Message' })
+  @Prop({
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Message',
+  })
   lastMessage: string;
 
   @Prop({

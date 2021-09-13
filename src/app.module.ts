@@ -14,15 +14,12 @@ import { ChatsModule } from './chats/chats.module';
     UsersModule,
     MessagesModule,
     ChatsModule,
-    MongooseModule.forRoot(
-      'mongodb+srv://admin:59DovOe4KFOe77CB@cluster0.3vxr7.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',
-      {
-        useFindAndModify: false,
-        useNewUrlParser: true,
-        useCreateIndex: true,
-        useUnifiedTopology: true,
-      },
-    ),
+    MongooseModule.forRoot('database url here', {
+      useFindAndModify: false,
+      useNewUrlParser: true,
+      useCreateIndex: true,
+      useUnifiedTopology: true,
+    }),
     AuthModule,
   ],
   controllers: [AppController],

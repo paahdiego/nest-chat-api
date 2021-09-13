@@ -15,7 +15,7 @@ import { ChatsModule } from './chats/chats.module';
     MessagesModule,
     ChatsModule,
     MongooseModule.forRoot(
-      'mongodb+srv://admin:59DovOe4KFOe77CB@cluster0.3vxr7.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',
+      'database url here',
       {
         useFindAndModify: false,
         useNewUrlParser: true,

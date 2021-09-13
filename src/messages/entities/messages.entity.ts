@@ -1,6 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
-import { User } from 'src/users/entities/user.entity';
+
 import * as mongoose from 'mongoose';
 export type MessageDocument = Message & Document;
 
@@ -16,14 +16,35 @@ export class Message {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
   })
-  sender: User;
+  sender: string;
+
+  @Prop({
+    required: true,
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+  })
+  receiver: string;
 
   @Prop({
     required: true,
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Chat',
   })
-  chatId: string;
+  chat: string;
+
+  @Prop({
+    required: false,
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+  })
+  createdBy?: string;
+
+  @Prop({
+    required: false,
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+  })
+  updatedBy?: string;
 }
 
 export const MessageSchema = SchemaFactory.createForClass(Message);
